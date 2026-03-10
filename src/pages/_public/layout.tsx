@@ -8,7 +8,7 @@ export const Route = createFileRoute("/_public")({
 
 function PublicLayout() {
 	return (
-		<main className="min-h-screen w-full bg-white text-black dark:text-white">
+		<main className="min-h-screen w-full bg-[#F7F7F7] text-black dark:text-white">
 			<Navbar />
 
 			<div>
