@@ -93,7 +93,7 @@ export function Navbar() {
 							className="hidden cursor-pointer items-center gap-2 py-4! text-lg text-primary-green-dark transition-colors hover:text-primary-green-dark/80 md:flex"
 							onClick={() => {
 								setMobileMenuOpen(false);
-								// navigate({ to: "/sign-in" });
+								navigate({ to: "/sign-in" });
 							}}
 							variant="outline"
 						>
@@ -105,7 +105,7 @@ export function Navbar() {
 							className="hidden cursor-pointer items-center gap-2 bg-primary-green py-4! text-lg text-white transition-colors hover:bg-primary-green/90 md:flex"
 							onClick={() => {
 								setMobileMenuOpen(false);
-								// navigate({ to: "/sign-in" });
+								navigate({ to: "/sign-up" });
 							}}
 						>
 							Cadastrar
@@ -208,7 +208,7 @@ export function Navbar() {
 								className="flex w-full cursor-pointer items-center gap-2 py-4! text-lg text-primary-green-dark transition-colors hover:text-primary-green-dark/80"
 								onClick={() => {
 									setMobileMenuOpen(false);
-									// navigate({ to: "/sign-in" });
+									navigate({ to: "/sign-in" });
 								}}
 								variant="outline"
 							>
@@ -220,7 +220,7 @@ export function Navbar() {
 								className="flex w-full cursor-pointer items-center gap-2 bg-primary-green py-4! text-lg text-white transition-colors hover:bg-primary-green/90"
 								onClick={() => {
 									setMobileMenuOpen(false);
-									// navigate({ to: "/sign-in" });
+									navigate({ to: "/sign-up" });
 								}}
 							>
 								Cadastrar
