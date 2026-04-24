@@ -18,7 +18,9 @@ export function InformationCard({
 			<div
 				className={`${layout === "success" ? "bg-primary-green" : "bg-primary-red/10"} flex h-12 w-12 items-center justify-center rounded-lg`}
 			>
-				<Icon />
+				<Icon
+					className={`${layout === "success" ? "text-white" : "text-black"}`}
+				/>
 			</div>
 
 			<h1 className="font-semibold text-2xl text-black">{title}</h1>

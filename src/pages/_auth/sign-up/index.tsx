@@ -17,7 +17,12 @@ function SignUpPage() {
 			<Navbar />
 
 			<div className="container mx-auto flex h-screen w-full max-w-6xl flex-1 gap-10 px-4 py-8 md:grid md:grid-cols-2 md:px-6.75 lg:px-8">
-				<div className="hidden h-full w-full rounded-[5px] bg-primary-green md:flex" />
+				{/** biome-ignore lint/correctness/useImageSize: not required by @TailwindCSS */}
+				<img
+					alt="Recycling material(s)"
+					className="hidden w-full rounded-[5px] md:flex"
+					src="/assets/images/recycling-materials/material-2.png"
+				/>
 
 				<SignUpForm />
 			</div>
