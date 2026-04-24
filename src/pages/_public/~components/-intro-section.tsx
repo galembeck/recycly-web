@@ -24,7 +24,7 @@ export function IntroSection() {
 				</p>
 
 				<Button
-					className="w-full cursor-pointer self-start text-lg text-primary-green shadow-lg transition-shadow duration-300 hover:shadow-xl md:w-fit"
+					className="w-full cursor-pointer self-start bg-[#E5E5E8] text-lg text-primary-green shadow-lg transition-shadow duration-300 hover:bg-[#E5E5E8] hover:shadow-xl md:w-fit"
 					onClick={() => navigate({ to: "/" })}
 				>
 					Pontos de coleta próximos
@@ -49,7 +49,14 @@ export function IntroSection() {
 				</div>
 			</div>
 
-			<div className="h-125 w-full rounded-lg bg-primary-green" />
+			{/* <div className="h-125 w-full rounded-lg bg-primary-green" /> */}
+
+			{/** biome-ignore lint/correctness/useImageSize: not required by @TailwindCSS */}
+			<img
+				alt="Recycly"
+				className="h-125 w-full rounded-lg"
+				src="/assets/images/recycling-intro.png"
+			/>
 		</section>
 	);
 }

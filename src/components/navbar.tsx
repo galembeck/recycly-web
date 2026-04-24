@@ -1,14 +1,26 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "@tanstack/react-router";
-import { LogIn, Menu, Recycle, X } from "lucide-react";
+import { LayoutDashboard, LogIn, LogOut, Menu, Recycle, X } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/hooks/use-auth";
+import { authService } from "@/services/auth";
 import { scrollToSection } from "@/utils/scroll-to-section";
+import { ThemeToggle } from "./theme-toggle";
 import { Button } from "./ui/button";
 
 export function Navbar() {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const queryClient = useQueryClient();
+	const { user, isAuthenticated } = useAuth();
 
-	// const { user, logout } = useAuth();
+	const { mutate: signOut } = useMutation({
+		mutationFn: authService.signOut,
+		onSettled: () => {
+			queryClient.setQueryData(["auth", "me"], null);
+			navigate({ to: "/" });
+		},
+	});
 
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -89,27 +101,52 @@ export function Navbar() {
 					</nav>
 
 					<div className="hidden md:flex md:items-center md:gap-5">
-						<Button
-							className="hidden cursor-pointer items-center gap-2 py-4! text-lg text-primary-green-dark transition-colors hover:text-primary-green-dark/80 md:flex"
-							onClick={() => {
-								setMobileMenuOpen(false);
-								navigate({ to: "/sign-in" });
-							}}
-							variant="outline"
-						>
-							Entrar
-							<LogIn className="h-5 w-5" />
-						</Button>
+						{isAuthenticated ? (
+							<>
+								<Button
+									className="hidden cursor-pointer items-center gap-2 py-4! text-lg text-primary-green-dark transition-colors hover:text-primary-green-dark/80 md:flex"
+									onClick={() => navigate({ to: "/admin/dashboard" })}
+									variant="outline"
+								>
+									<LayoutDashboard className="h-5 w-5" />
+									{user?.name?.split(" ")[0]}
+								</Button>
 
-						<Button
-							className="hidden cursor-pointer items-center gap-2 bg-primary-green py-4! text-lg text-white transition-colors hover:bg-primary-green/90 md:flex"
-							onClick={() => {
-								setMobileMenuOpen(false);
-								navigate({ to: "/sign-up" });
-							}}
-						>
-							Cadastrar
-						</Button>
+								<Button
+									className="hidden cursor-pointer items-center gap-2 bg-primary-green py-4! text-lg text-white transition-colors hover:bg-primary-green/90 md:flex"
+									onClick={() => signOut()}
+								>
+									<LogOut className="h-5 w-5" />
+									Sair
+								</Button>
+							</>
+						) : (
+							<>
+								<Button
+									className="hidden cursor-pointer items-center gap-2 py-4! text-lg text-primary-green-dark transition-colors hover:text-primary-green-dark/80 md:flex"
+									onClick={() => {
+										setMobileMenuOpen(false);
+										navigate({ to: "/sign-in" });
+									}}
+									variant="outline"
+								>
+									Entrar
+									<LogIn className="h-5 w-5" />
+								</Button>
+
+								<Button
+									className="hidden cursor-pointer items-center gap-2 bg-primary-green py-4! text-lg text-white transition-colors hover:bg-primary-green/90 md:flex"
+									onClick={() => {
+										setMobileMenuOpen(false);
+										navigate({ to: "/sign-up" });
+									}}
+								>
+									Cadastrar
+								</Button>
+							</>
+						)}
+
+						<ThemeToggle />
 					</div>
 
 					<button
@@ -176,56 +213,56 @@ export function Navbar() {
 								Impactos
 							</Button>
 
-							{/* {user ? (
+							{isAuthenticated ? (
 								<>
-									{user.profileType === 1 && (
-										<Button
-											className="flex w-full cursor-pointer items-center gap-2 py-4! text-base"
-											onClick={() => {
-												setMobileMenuOpen(false);
-												navigate({ to: "/admin/dashboard" });
-											}}
-											variant="secondary"
-										>
-											<LayoutDashboard className="h-5 w-5" />
-											Painel administrativo
-										</Button>
-									)}
-
 									<Button
-										className="flex w-full cursor-pointer items-center gap-2 bg-amber-900 py-4! text-base text-white transition-colors hover:bg-amber-900/90"
+										className="flex w-full cursor-pointer items-center gap-2 py-4! text-base"
 										onClick={() => {
 											setMobileMenuOpen(false);
-											logout();
+											navigate({ to: "/admin/dashboard" });
+										}}
+										variant="secondary"
+									>
+										<LayoutDashboard className="h-5 w-5" />
+										Painel administrativo
+									</Button>
+
+									<Button
+										className="flex w-full cursor-pointer items-center gap-2 bg-primary-green py-4! text-lg text-white transition-colors hover:bg-primary-green/90"
+										onClick={() => {
+											setMobileMenuOpen(false);
+											signOut();
 										}}
 									>
 										<LogOut className="h-5 w-5" />
 										Sair
 									</Button>
 								</>
-							) : ( */}
-							<Button
-								className="flex w-full cursor-pointer items-center gap-2 py-4! text-lg text-primary-green-dark transition-colors hover:text-primary-green-dark/80"
-								onClick={() => {
-									setMobileMenuOpen(false);
-									navigate({ to: "/sign-in" });
-								}}
-								variant="outline"
-							>
-								Entrar
-								<LogIn className="h-5 w-5" />
-							</Button>
+							) : (
+								<>
+									<Button
+										className="flex w-full cursor-pointer items-center gap-2 py-4! text-lg text-primary-green-dark transition-colors hover:text-primary-green-dark/80"
+										onClick={() => {
+											setMobileMenuOpen(false);
+											navigate({ to: "/sign-in" });
+										}}
+										variant="outline"
+									>
+										Entrar
+										<LogIn className="h-5 w-5" />
+									</Button>
 
-							<Button
-								className="flex w-full cursor-pointer items-center gap-2 bg-primary-green py-4! text-lg text-white transition-colors hover:bg-primary-green/90"
-								onClick={() => {
-									setMobileMenuOpen(false);
-									navigate({ to: "/sign-up" });
-								}}
-							>
-								Cadastrar
-							</Button>
-							{/* )} */}
+									<Button
+										className="flex w-full cursor-pointer items-center gap-2 bg-primary-green py-4! text-lg text-white transition-colors hover:bg-primary-green/90"
+										onClick={() => {
+											setMobileMenuOpen(false);
+											navigate({ to: "/sign-up" });
+										}}
+									>
+										Cadastrar
+									</Button>
+								</>
+							)}
 						</div>
 					</nav>
 				)}

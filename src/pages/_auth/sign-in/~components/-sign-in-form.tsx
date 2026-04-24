@@ -1,10 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { useAuth } from "@/hooks/use-auth";
+import { type ApiException } from "@/services/api";
+import { authService } from "@/services/auth";
 import { Button } from "@/components/ui/button";
 import {
 	Field,
@@ -29,6 +33,7 @@ type SignInFormData = z.infer<typeof signInSchema>;
 
 export function SignInForm() {
 	const navigate = useNavigate();
+	const { refetch } = useAuth();
 
 	const [serverError, setServerError] = useState("");
 
@@ -40,29 +45,30 @@ export function SignInForm() {
 		},
 	});
 
-	function onSubmit(values: SignInFormData) {
-		try {
-			setServerError("");
-
-			// TODO: Implementar a lógica de autenticação chamando a API
-			// await login({
-			// 	email: values.email,
-			// 	passwod: values.password,
-			// })
-
+	const { mutate: signIn, isPending } = useMutation({
+		mutationFn: authService.signIn,
+		onSuccess: async () => {
+			refetch();
 			toast.success("Bem-vindo de volta!", {
 				description: "Redirecionando para o painel administrativo...",
 			});
-
-			// TODO: Redirecionar para o painel administrativo
-			navigate({ to: "/" });
-		} catch (_error) {
-			setServerError("E-mail ou senha inválidos.");
-
+			navigate({ to: "/admin/dashboard" });
+		},
+		onError: (err) => {
+			const message =
+				(err as ApiException).status === 400
+					? "E-mail ou senha inválidos."
+					: "Erro ao realizar login. Tente novamente.";
+			setServerError(message);
 			toast.error("Erro ao realizar login!", {
 				description: "Verifique suas credenciais e tente novamente.",
 			});
-		}
+		},
+	});
+
+	function onSubmit(values: SignInFormData) {
+		setServerError("");
+		signIn({ email: values.email, password: values.password });
 	}
 
 	return (
@@ -141,25 +147,29 @@ export function SignInForm() {
 						/>
 					</FieldGroup>
 
+					{serverError && (
+						<p className="text-center text-red-500 text-sm">{serverError}</p>
+					)}
+
 					<Button
 						className="w-full cursor-pointer bg-primary-green py-6! font-medium text-white text-xl hover:bg-primary-green/90"
-						// disabled={isLoggingIn}
+						disabled={isPending}
 						type="submit"
 						variant="secondary"
 					>
-						{/* {isLoggingIn ? (
-							<div className="flex gap-4">
-								<Spinner />
+						{isPending ? (
+							<div className="flex items-center gap-4">
+								<Loader2 className="animate-spin" />
 								<p>Entrando...</p>
 							</div>
-						) : ( */}
-						<div className="group flex items-center gap-2 transition-all">
-							<span>Entrar</span>
-							<span className="ml-1 transition-all duration-300 group-hover:-translate-x-4 group-hover:opacity-0">
-								<ArrowRight />
-							</span>
-						</div>
-						{/* )} */}
+						) : (
+							<div className="group flex items-center gap-2 transition-all">
+								<span>Entrar</span>
+								<span className="ml-1 transition-all duration-300 group-hover:-translate-x-4 group-hover:opacity-0">
+									<ArrowRight />
+								</span>
+							</div>
+						)}
 					</Button>
 				</form>
 			</Form>
