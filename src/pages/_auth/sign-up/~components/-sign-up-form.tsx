@@ -82,10 +82,18 @@ const signUpSchema = z
     password: z
       .string()
       .min(8, { message: "Mínimo de 8 caracteres" })
-      .refine((v) => /[A-Z]/.test(v), { message: "Deve conter ao menos uma letra maiúscula" })
-      .refine((v) => /[a-z]/.test(v), { message: "Deve conter ao menos uma letra minúscula" })
-      .refine((v) => /[0-9]/.test(v), { message: "Deve conter ao menos um número" })
-      .refine((v) => /[^A-Za-z0-9]/.test(v), { message: "Deve conter ao menos um caractere especial" }),
+      .refine((v) => /[A-Z]/.test(v), {
+        message: "Deve conter ao menos uma letra maiúscula",
+      })
+      .refine((v) => /[a-z]/.test(v), {
+        message: "Deve conter ao menos uma letra minúscula",
+      })
+      .refine((v) => /[0-9]/.test(v), {
+        message: "Deve conter ao menos um número",
+      })
+      .refine((v) => /[^A-Za-z0-9]/.test(v), {
+        message: "Deve conter ao menos um caractere especial",
+      }),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -141,8 +149,8 @@ export function SignUpForm() {
   }
 
   return (
-    <div className="flex max-h-full w-full flex-col gap-4 overflow-y-auto rounded-[10px] bg-white px-6 py-6 shadow-lg">
-      <h1 className="text-center font-bold text-5xl text-[#5B5B5B]">
+    <div className="flex max-h-full w-full flex-col gap-4 overflow-y-auto rounded-[10px] bg-white dark:bg-third-dark px-6 py-6 shadow-lg">
+      <h1 className="text-center font-bold text-5xl text-[#5B5B5B] dark:text-white">
         Cadastrar-se
       </h1>
 
@@ -159,7 +167,7 @@ export function SignUpForm() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel
-                    className="font-afacad text-2xl text-black"
+                    className="font-afacad text-2xl text-black dark:text-white"
                     htmlFor="sign-up-form-name"
                   >
                     Nome completo
@@ -171,7 +179,7 @@ export function SignUpForm() {
                     <Input
                       {...field}
                       aria-invalid={fieldState.invalid}
-                      className="border-[#D9D9D9]! pl-12! py-6 text-black! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
+                      className="border-[#D9D9D9]! dark:border-muted-foreground/30! pl-12! py-6 text-black! dark:text-white! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
                       id="sign-up-form-email"
                       placeholder="Seu nome completo"
                     />
@@ -193,7 +201,7 @@ export function SignUpForm() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel
-                    className="font-afacad text-2xl text-black"
+                    className="font-afacad text-2xl text-black dark:text-white"
                     htmlFor="sign-up-form-email"
                   >
                     E-mail
@@ -205,7 +213,7 @@ export function SignUpForm() {
                     <Input
                       {...field}
                       aria-invalid={fieldState.invalid}
-                      className="border-[#D9D9D9]! pl-12! py-6 text-black! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
+                      className="border-[#D9D9D9]! dark:border-muted-foreground/30! pl-12! py-6 text-black! dark:text-white! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
                       id="sign-up-form-email"
                       placeholder="seu@email.com"
                       type="email"
@@ -228,7 +236,7 @@ export function SignUpForm() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel
-                    className="font-afacad text-2xl text-black"
+                    className="font-afacad text-2xl text-black dark:text-white"
                     htmlFor="sign-up-form-document"
                   >
                     CPF
@@ -239,7 +247,7 @@ export function SignUpForm() {
 
                     <Input
                       aria-invalid={fieldState.invalid}
-                      className="border-[#D9D9D9]! pl-12! py-6 text-black! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
+                      className="border-[#D9D9D9]! dark:border-muted-foreground/30! pl-12! py-6 text-black! dark:text-white! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
                       id="sign-up-form-document"
                       name={field.name}
                       onBlur={field.onBlur}
@@ -271,7 +279,7 @@ export function SignUpForm() {
                   name={`phones.${index}.number`}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel className="font-afacad text-2xl text-black">
+                      <FieldLabel className="font-afacad text-2xl text-black dark:text-white">
                         Telefone {index + 1}
                       </FieldLabel>
 
@@ -283,7 +291,7 @@ export function SignUpForm() {
                             <Input
                               {...field}
                               aria-invalid={fieldState.invalid}
-                              className="border-[#D9D9D9]! pl-12! py-6 text-black! text-xl! shadow-sm"
+                              className="border-[#D9D9D9]! dark:border-muted-foreground/30! pl-12! py-6 text-black! dark:text-white! text-xl! shadow-sm"
                               onChange={(e) =>
                                 field.onChange(formatWhatsApp(e.target.value))
                               }
@@ -318,7 +326,7 @@ export function SignUpForm() {
               <button
                 type="button"
                 onClick={() => append({ number: "" })}
-                className="flex items-center gap-2 text-primary-green font-medium hover:underline text-lg mt-2"
+                className="flex items-center cursor-pointer gap-2 text-primary-green font-medium hover:underline text-lg mt-2"
               >
                 <Plus className="h-5 w-5" />
                 Adicionar outro telefone
@@ -331,7 +339,7 @@ export function SignUpForm() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel
-                    className="font-afacad text-2xl text-black"
+                    className="font-afacad text-2xl text-black dark:text-white"
                     htmlFor="sign-up-form-birthDate"
                   >
                     Data de nascimento
@@ -342,7 +350,7 @@ export function SignUpForm() {
 
                     <Input
                       aria-invalid={fieldState.invalid}
-                      className="border-[#D9D9D9]! pl-12! py-6 text-black! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
+                      className="border-[#D9D9D9]! dark:border-muted-foreground/30! pl-12! py-6 text-black! dark:text-white! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
                       id="sign-up-form-birthDate"
                       name={field.name}
                       onBlur={field.onBlur}
@@ -372,7 +380,7 @@ export function SignUpForm() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel
-                    className="font-afacad text-2xl text-black"
+                    className="font-afacad text-2xl text-black dark:text-white"
                     htmlFor="sign-up-form-password"
                   >
                     Senha
@@ -384,7 +392,7 @@ export function SignUpForm() {
                     <Input
                       {...field}
                       aria-invalid={fieldState.invalid}
-                      className="border-[#D9D9D9]! pl-12! pr-10! py-6 text-black! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
+                      className="border-[#D9D9D9]! dark:border-muted-foreground/30! pl-12! pr-10! py-6 text-black! dark:text-white! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
                       id="sign-up-form-password"
                       placeholder="******"
                       type={showPassword ? "text" : "password"}
@@ -419,7 +427,7 @@ export function SignUpForm() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel
-                    className="font-afacad text-2xl text-black"
+                    className="font-afacad text-2xl text-black dark:text-white"
                     htmlFor="sign-up-form-confirmPassword"
                   >
                     Confirmar senha
@@ -430,7 +438,7 @@ export function SignUpForm() {
                     <Input
                       {...field}
                       aria-invalid={fieldState.invalid}
-                      className="border-[#D9D9D9]! pl-12! pr-10! py-6 text-black! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
+                      className="border-[#D9D9D9]! dark:border-muted-foreground/30! pl-12! pr-10! py-6 text-black! dark:text-white! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
                       id="sign-up-form-confirmPassword"
                       placeholder="******"
                       type={showPasswordConfirmation ? "text" : "password"}
@@ -488,7 +496,7 @@ export function SignUpForm() {
       </Form>
 
       <Link
-        className="text-center text-lg text-primary-green-dark"
+        className="text-center text-lg text-primary-green-dark dark:text-white"
         to="/sign-in"
       >
         Já tem uma conta? <strong className="text-primary-green">Entrar</strong>
