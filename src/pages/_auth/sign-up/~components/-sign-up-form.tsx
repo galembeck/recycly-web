@@ -473,17 +473,19 @@ export function SignUpForm() {
 
             <Field>
               <FieldLabel className="font-afacad text-2xl text-black dark:text-white">
-                Documento de identidade (opcional)
+                Documento de identidade (upload)
               </FieldLabel>
 
               <label
-                className="flex cursor-pointer items-center gap-3 rounded-lg border-2 border-dashed border-[#D9D9D9] dark:border-muted-foreground/30 px-4 py-5 transition-colors hover:border-primary-green"
+                className="cursor-pointer flex flex-col items-center gap-3 rounded-lg border-2 border-dashed border-[#D9D9D9] dark:border-muted-foreground/30 px-4 py-5 transition-colors hover:border-primary-green"
                 htmlFor="sign-up-form-document-file"
               >
-                <ImagePlus className="h-5 w-5 shrink-0 text-gray-400" />
+                <ImagePlus className="h-7 w-7 shrink-0 text-gray-400" />
 
                 <span className="flex-1 truncate text-xl text-[#B3B3B3] dark:text-muted-foreground">
-                  {documentFile ? documentFile.name : "Selecionar imagem ou PDF..."}
+                  {documentFile
+                    ? documentFile.name
+                    : "Selecionar imagem ou PDF..."}
                 </span>
 
                 {documentFile && (
