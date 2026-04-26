@@ -3,19 +3,19 @@ import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 
 export const Route = createFileRoute("/_public")({
-	component: PublicLayout,
+  component: PublicLayout,
 });
 
 function PublicLayout() {
-	return (
-		<main className="min-h-screen w-full bg-[#F7F7F7] text-black dark:text-white">
-			<Navbar />
+  return (
+    <main className="min-h-screen w-full bg-[#F7F7F7] dark:bg-secondary-dark text-black dark:text-white">
+      <Navbar />
 
-			<div>
-				<Outlet />
-			</div>
+      <div>
+        <Outlet />
+      </div>
 
-			<Footer />
-		</main>
-	);
+      <Footer />
+    </main>
+  );
 }
