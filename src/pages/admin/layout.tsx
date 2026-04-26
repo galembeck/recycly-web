@@ -27,13 +27,13 @@ export const Route = createFileRoute("/admin")({
 function AdminLayout() {
 	const location = useLocation();
 	const navigate = useNavigate();
-	const { isAuthenticated, isLoading } = useAuth();
+	const { isAuthenticated, isLoading, user } = useAuth();
 
 	useEffect(() => {
-		if (!isLoading && !isAuthenticated) {
+		if (!isLoading && (!isAuthenticated || user?.profileType !== 1)) {
 			navigate({ to: "/sign-in" });
 		}
-	}, [isLoading, isAuthenticated, navigate]);
+	}, [isLoading, isAuthenticated, user, navigate]);
 
 	const pageLabels: Record<string, string> = {
 		"/admin/dashboard": "Dashboard (overview)",
