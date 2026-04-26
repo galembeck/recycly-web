@@ -1,14 +1,15 @@
 import { type ApiException } from "@/api/api";
 import { authService } from "@/services/auth";
 import { useAuth as useAuthProvider } from "@/providers/auth-provider";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 
 export function useAuth() {
   const navigate = useNavigate();
-  const { refetch } = useAuthProvider();
+  const queryClient = useQueryClient();
+  const { user, isAuthenticated, refetch } = useAuthProvider();
 
   const [serverError, setServerError] = useState("");
 
@@ -33,5 +34,13 @@ export function useAuth() {
     },
   });
 
-  return { signIn, isPending, serverError, setServerError };
+  const { mutate: signOut } = useMutation({
+    mutationFn: authService.signOut,
+    onSettled: () => {
+      queryClient.setQueryData(["auth", "me"], null);
+      navigate({ to: "/" });
+    },
+  });
+
+  return { signIn, signOut, isPending, serverError, setServerError, user, isAuthenticated };
 }
