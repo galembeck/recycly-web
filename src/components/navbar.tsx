@@ -2,9 +2,11 @@ import { useLocation, useNavigate } from "@tanstack/react-router";
 import { LayoutDashboard, LogIn, LogOut, Menu, Recycle, X } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/hooks/services/use-auth";
+import { getInitials } from "@/utils/get-initials";
 import { scrollToSection } from "@/utils/scroll-to-section";
 import { ThemeToggle } from "./theme-toggle";
 import { Button } from "./ui/button";
+import { ProfileDropdown } from "./profile-dropdown";
 
 export function Navbar() {
   const navigate = useNavigate();
@@ -27,11 +29,6 @@ export function Navbar() {
             }
             variant="link"
           >
-            {/* <img
-							alt="Recycly"
-							className="size-7"
-							src="/assets/icons/logo.svg"
-						/> */}
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-green">
               <Recycle className="size-6 text-white" />
             </div>
@@ -86,30 +83,11 @@ export function Navbar() {
             >
               Impactos
             </Button>
-
-            {/* <ProfileDropdown /> */}
           </nav>
 
           <div className="hidden md:flex md:items-center md:gap-5">
             {isAuthenticated ? (
-              <>
-                <Button
-                  className="hidden cursor-pointer items-center gap-2 py-4! text-lg text-primary-green-dark dark:text-white transition-colors hover:text-primary-green-dark/80 dark:hover:text-white/80 md:flex"
-                  onClick={() => navigate({ to: "/admin/dashboard" })}
-                  variant="outline"
-                >
-                  <LayoutDashboard className="h-5 w-5" />
-                  {user?.name?.split(" ")[0]}
-                </Button>
-
-                <Button
-                  className="hidden cursor-pointer items-center gap-2 bg-primary-green py-4! text-lg text-whitetransition-colors hover:bg-primary-green/90 md:flex"
-                  onClick={() => signOut()}
-                >
-                  <LogOut className="h-5 w-5" />
-                  Sair
-                </Button>
-              </>
+              <ProfileDropdown />
             ) : (
               <>
                 <Button
