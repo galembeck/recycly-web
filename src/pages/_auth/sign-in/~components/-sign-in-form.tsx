@@ -25,9 +25,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
 const signInSchema = z.object({
-  email: z.email({
-    message: "O email deve ter um formato válido.",
-  }),
+  identifier: z.string().min(1, { message: "Informe seu e-mail ou CPF." }),
   password: z.string().min(1, {
     message: "A senha é obrigatória.",
   }),
@@ -44,7 +42,7 @@ export function SignInForm() {
   const form = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      email: "",
+      identifier: "",
       password: "",
     },
   });
@@ -52,7 +50,7 @@ export function SignInForm() {
   function onSubmit(values: SignInFormData) {
     setServerError("");
 
-    signIn({ email: values.email, password: values.password });
+    signIn({ identifier: values.identifier, password: values.password });
   }
 
   return (
@@ -70,14 +68,14 @@ export function SignInForm() {
           <FieldGroup>
             <Controller
               control={form.control}
-              name="email"
+              name="identifier"
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel
                     className="font-afacad text-2xl text-black dark:text-white"
-                    htmlFor="sign-in-form-email"
+                    htmlFor="sign-in-form-identifier"
                   >
-                    E-mail
+                    E-mail ou CPF
                   </FieldLabel>
 
                   <div className="relative">
@@ -87,9 +85,8 @@ export function SignInForm() {
                       {...field}
                       aria-invalid={fieldState.invalid}
                       className="border-[#D9D9D9]! dark:border-muted-foreground/30! pl-12! py-6 text-black! dark:text-white! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
-                      id="sign-in-form-email"
-                      placeholder="seu@email.com"
-                      type="email"
+                      id="sign-in-form-identifier"
+                      placeholder="seu@email.com ou 000.000.000-00"
                     />
                   </div>
 

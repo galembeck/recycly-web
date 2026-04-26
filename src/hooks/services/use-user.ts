@@ -18,7 +18,7 @@ export function useUser() {
   const { mutate: register, isPending } = useMutation({
     mutationFn: async (data: PrivateUserDTO) => {
       await userService.register(data);
-      await authService.signIn({ email: data.email, password: data.password });
+      await authService.signIn({ identifier: data.email, password: data.password });
     },
     onSuccess: async () => {
       await refetch();

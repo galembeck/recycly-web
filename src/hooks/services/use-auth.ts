@@ -14,7 +14,7 @@ export function useAuth() {
   const [serverError, setServerError] = useState("");
 
   const { mutate: signIn, isPending } = useMutation({
-    mutationFn: authService.signIn,
+    mutationFn: (data: { identifier: string; password: string }) => authService.signIn(data),
     onSuccess: async () => {
       await refetch();
       toast.success("Bem-vindo de volta!", {
