@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import { LayoutDashboard, LogIn, LogOut, Menu, Recycle, X } from "lucide-react";
 import { useState } from "react";
-import { useAuth } from "@/hooks/use-auth";
+import { useAuth } from "@/providers/auth-provider";
 import { authService } from "@/services/auth";
 import { scrollToSection } from "@/utils/scroll-to-section";
 import { ThemeToggle } from "./theme-toggle";

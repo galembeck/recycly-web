@@ -7,29 +7,38 @@ import { IntroSection } from "./~components/-intro-section";
 import { SustainabilitySection } from "./~components/-sustainability-section";
 
 export const Route = createFileRoute("/_public/")({
-	component: HomePage,
-	head: () => ({
-		meta: [
-			{
-				title: "Recycly | Reciclagem rápida, fácil e eficiente",
-			},
-		],
-	}),
+  component: HomePage,
+  head: () => ({
+    meta: [
+      {
+        title: "Recycly | Reciclagem rápida, fácil e eficiente",
+      },
+    ],
+  }),
 });
 
 function HomePage() {
-	return (
-		<main className="flex flex-col gap-18">
-			<IntroSection />
-			<Separator className="bg-gray-300!" orientation="horizontal" />
-			<HowItWorksSection />
-			<Separator className="bg-gray-300!" orientation="horizontal" />
-			<FeaturesSection />
-			<Separator className="bg-gray-300!" orientation="horizontal" />
-			<ImpactsSection />
-			<Separator className="bg-gray-300!" orientation="horizontal" />
-			<SustainabilitySection />
-			<Separator className="bg-gray-300!" orientation="horizontal" />
-		</main>
-	);
+  return (
+    <main className="flex flex-col gap-18">
+      <IntroSection />
+
+      <Separator className="bg-gray-300!" orientation="horizontal" />
+
+      <HowItWorksSection />
+
+      <Separator className="bg-gray-300!" orientation="horizontal" />
+
+      <FeaturesSection />
+
+      <Separator className="bg-gray-300!" orientation="horizontal" />
+
+      <ImpactsSection />
+
+      <Separator className="bg-gray-300!" orientation="horizontal" />
+
+      <SustainabilitySection />
+
+      <Separator className="bg-gray-300!" orientation="horizontal" />
+    </main>
+  );
 }
