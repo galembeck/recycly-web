@@ -16,11 +16,6 @@ export function Footer() {
               className="flex items-center justify-center gap-2 font-bold text-2xl text-white sm:justify-start"
               to="/"
             >
-              {/* <img
-									alt="Fyno"
-									className="size-7"
-									src="/assets/icons/logo.svg"
-								/> */}
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-green">
                 <Recycle className="size-6 text-white" />
               </div>
