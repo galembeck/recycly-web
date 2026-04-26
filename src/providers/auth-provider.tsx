@@ -8,7 +8,7 @@ type AuthContextValue = {
   user: PublicUserDTO | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  refetch: () => void;
+  refetch: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -30,8 +30,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     staleTime: 5 * 60 * 1000,
   });
 
-  function refetchUser() {
-    queryClient.invalidateQueries({ queryKey: ["auth", "me"] });
+  async function refetchUser() {
+    await queryClient.refetchQueries({ queryKey: ["auth", "me"] });
   }
 
   return (

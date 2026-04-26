@@ -1,9 +1,10 @@
 export interface PrivateUserDTO extends Omit<
   PublicUserDTO,
-  "id" | "createdAt" | "lastAccessAt"
+  "id" | "createdAt" | "lastAccessAt" | "avatarUrl"
 > {
   profileType: 1;
   password: string;
+  avatar?: File;
 }
 
 export interface PublicUserDTO {
@@ -11,6 +12,7 @@ export interface PublicUserDTO {
   name: string;
   email: string;
   document: string;
+  avatarUrl?: string | null;
   birthDate: string;
   phones: string[];
   profileType: number;

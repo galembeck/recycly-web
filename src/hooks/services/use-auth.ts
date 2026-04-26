@@ -15,8 +15,8 @@ export function useAuth() {
 
   const { mutate: signIn, isPending } = useMutation({
     mutationFn: authService.signIn,
-    onSuccess: () => {
-      refetch();
+    onSuccess: async () => {
+      await refetch();
       toast.success("Bem-vindo de volta!", {
         description: "Redirecionando para o painel administrativo...",
       });

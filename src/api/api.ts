@@ -17,13 +17,13 @@ export function createApiException(
 }
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
+  const isFormData = options.body instanceof FormData;
   const res = await fetch(`${BASE_URL}${path}`, {
     ...options,
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
+    headers: isFormData
+      ? { ...options.headers }
+      : { "Content-Type": "application/json", ...options.headers },
   });
 
   if (!res.ok) {
@@ -51,6 +51,9 @@ export const API = {
       body: body !== undefined ? JSON.stringify(body) : undefined,
       ...options,
     }),
+
+  postForm: <T>(path: string, formData: FormData, options?: RequestInit) =>
+    request<T>(path, { method: "POST", body: formData, ...options }),
 
   put: <T>(path: string, body?: unknown, options?: RequestInit) =>
     request<T>(path, {

@@ -21,7 +21,7 @@ export function useUser() {
       await authService.signIn({ email: data.email, password: data.password });
     },
     onSuccess: async () => {
-      refetch();
+      await refetch();
       toast.success("Conta criada com sucesso!", {
         description: "Redirecionando para o painel administrativo...",
       });
