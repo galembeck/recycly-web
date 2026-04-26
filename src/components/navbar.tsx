@@ -1,9 +1,7 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import { LayoutDashboard, LogIn, LogOut, Menu, Recycle, X } from "lucide-react";
 import { useState } from "react";
-import { useAuth } from "@/providers/auth-provider";
-import { authService } from "@/services/auth";
+import { useAuth } from "@/hooks/services/use-auth";
 import { scrollToSection } from "@/utils/scroll-to-section";
 import { ThemeToggle } from "./theme-toggle";
 import { Button } from "./ui/button";
@@ -11,16 +9,8 @@ import { Button } from "./ui/button";
 export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const queryClient = useQueryClient();
-  const { user, isAuthenticated } = useAuth();
 
-  const { mutate: signOut } = useMutation({
-    mutationFn: authService.signOut,
-    onSettled: () => {
-      queryClient.setQueryData(["auth", "me"], null);
-      navigate({ to: "/" });
-    },
-  });
+  const { signOut, user, isAuthenticated } = useAuth();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 

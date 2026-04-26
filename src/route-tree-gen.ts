@@ -16,6 +16,8 @@ import { Route as PublicIndexRouteImport } from './pages/_public/index'
 import { Route as AdminDashboardIndexRouteImport } from './pages/admin/dashboard/index'
 import { Route as AuthSignUpIndexRouteImport } from './pages/_auth/sign-up/index'
 import { Route as AuthSignInIndexRouteImport } from './pages/_auth/sign-in/index'
+import { Route as PublicFaqPrefecturesIndexRouteImport } from './pages/_public/faq/prefectures/index'
+import { Route as PublicFaqCooperativesIndexRouteImport } from './pages/_public/faq/cooperatives/index'
 
 const AdminLayoutRoute = AdminLayoutRouteImport.update({
   id: '/admin',
@@ -51,6 +53,18 @@ const AuthSignInIndexRoute = AuthSignInIndexRouteImport.update({
   path: '/sign-in/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PublicFaqPrefecturesIndexRoute =
+  PublicFaqPrefecturesIndexRouteImport.update({
+    id: '/faq/prefectures/',
+    path: '/faq/prefectures/',
+    getParentRoute: () => PublicLayoutRoute,
+  } as any)
+const PublicFaqCooperativesIndexRoute =
+  PublicFaqCooperativesIndexRouteImport.update({
+    id: '/faq/cooperatives/',
+    path: '/faq/cooperatives/',
+    getParentRoute: () => PublicLayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
@@ -59,6 +73,8 @@ export interface FileRoutesByFullPath {
   '/sign-in/': typeof AuthSignInIndexRoute
   '/sign-up/': typeof AuthSignUpIndexRoute
   '/admin/dashboard/': typeof AdminDashboardIndexRoute
+  '/faq/cooperatives/': typeof PublicFaqCooperativesIndexRoute
+  '/faq/prefectures/': typeof PublicFaqPrefecturesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
@@ -66,6 +82,8 @@ export interface FileRoutesByTo {
   '/sign-in': typeof AuthSignInIndexRoute
   '/sign-up': typeof AuthSignUpIndexRoute
   '/admin/dashboard': typeof AdminDashboardIndexRoute
+  '/faq/cooperatives': typeof PublicFaqCooperativesIndexRoute
+  '/faq/prefectures': typeof PublicFaqPrefecturesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -76,6 +94,8 @@ export interface FileRoutesById {
   '/_auth/sign-in/': typeof AuthSignInIndexRoute
   '/_auth/sign-up/': typeof AuthSignUpIndexRoute
   '/admin/dashboard/': typeof AdminDashboardIndexRoute
+  '/_public/faq/cooperatives/': typeof PublicFaqCooperativesIndexRoute
+  '/_public/faq/prefectures/': typeof PublicFaqPrefecturesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -86,8 +106,17 @@ export interface FileRouteTypes {
     | '/sign-in/'
     | '/sign-up/'
     | '/admin/dashboard/'
+    | '/faq/cooperatives/'
+    | '/faq/prefectures/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/sign-in' | '/sign-up' | '/admin/dashboard'
+  to:
+    | '/'
+    | '/admin'
+    | '/sign-in'
+    | '/sign-up'
+    | '/admin/dashboard'
+    | '/faq/cooperatives'
+    | '/faq/prefectures'
   id:
     | '__root__'
     | '/_public'
@@ -97,6 +126,8 @@ export interface FileRouteTypes {
     | '/_auth/sign-in/'
     | '/_auth/sign-up/'
     | '/admin/dashboard/'
+    | '/_public/faq/cooperatives/'
+    | '/_public/faq/prefectures/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -157,15 +188,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_public/faq/prefectures/': {
+      id: '/_public/faq/prefectures/'
+      path: '/faq/prefectures'
+      fullPath: '/faq/prefectures/'
+      preLoaderRoute: typeof PublicFaqPrefecturesIndexRouteImport
+      parentRoute: typeof PublicLayoutRoute
+    }
+    '/_public/faq/cooperatives/': {
+      id: '/_public/faq/cooperatives/'
+      path: '/faq/cooperatives'
+      fullPath: '/faq/cooperatives/'
+      preLoaderRoute: typeof PublicFaqCooperativesIndexRouteImport
+      parentRoute: typeof PublicLayoutRoute
+    }
   }
 }
 
 interface PublicLayoutRouteChildren {
   PublicIndexRoute: typeof PublicIndexRoute
+  PublicFaqCooperativesIndexRoute: typeof PublicFaqCooperativesIndexRoute
+  PublicFaqPrefecturesIndexRoute: typeof PublicFaqPrefecturesIndexRoute
 }
 
 const PublicLayoutRouteChildren: PublicLayoutRouteChildren = {
   PublicIndexRoute: PublicIndexRoute,
+  PublicFaqCooperativesIndexRoute: PublicFaqCooperativesIndexRoute,
+  PublicFaqPrefecturesIndexRoute: PublicFaqPrefecturesIndexRoute,
 }
 
 const PublicLayoutRouteWithChildren = PublicLayoutRoute._addFileChildren(
