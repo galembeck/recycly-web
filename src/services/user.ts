@@ -11,7 +11,7 @@ export const userService = {
     data.phones?.forEach((p) => formData.append("phones", p));
     formData.append("password", data.password);
     formData.append("profileType", String(data.profileType));
-    if (data.avatar) formData.append("avatar", data.avatar);
+    if (data.documentFile) formData.append("document", data.documentFile);
 
     return API.postForm<PublicUserDTO>("/user", formData);
   },

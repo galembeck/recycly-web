@@ -110,7 +110,7 @@ export function SignUpForm() {
 
   const { register, isPending, serverError } = useUser();
 
-  const [avatarFile, setAvatarFile] = useState<File | undefined>(undefined);
+  const [documentFile, setDocumentFile] = useState<File | undefined>(undefined);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] =
     useState(false);
@@ -148,7 +148,7 @@ export function SignUpForm() {
       birthDate,
       phones: cleanPhones,
       profileType: 1,
-      avatar: avatarFile,
+      documentFile,
     });
   }
 
@@ -198,44 +198,6 @@ export function SignUpForm() {
                 </Field>
               )}
             />
-
-            <Field>
-              <FieldLabel className="font-afacad text-2xl text-black dark:text-white">
-                Foto / Documento (opcional)
-              </FieldLabel>
-
-              <label
-                className="flex cursor-pointer items-center gap-3 rounded-lg border border-[#D9D9D9] dark:border-muted-foreground/30 px-4 py-4 shadow-sm transition-colors hover:border-primary-green"
-                htmlFor="sign-up-form-avatar"
-              >
-                <ImagePlus className="h-5 w-5 shrink-0 text-gray-400" />
-
-                <span className="flex-1 truncate text-xl text-[#B3B3B3] dark:text-muted-foreground">
-                  {avatarFile ? avatarFile.name : "Selecionar arquivo..."}
-                </span>
-
-                {avatarFile && (
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setAvatarFile(undefined);
-                    }}
-                    className="text-muted-foreground hover:text-red-500 transition-colors"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                )}
-
-                <input
-                  accept="image/*,.pdf"
-                  className="hidden"
-                  id="sign-up-form-avatar"
-                  type="file"
-                  onChange={(e) => setAvatarFile(e.target.files?.[0])}
-                />
-              </label>
-            </Field>
 
             <Controller
               control={form.control}
@@ -508,6 +470,44 @@ export function SignUpForm() {
                 </Field>
               )}
             />
+
+            <Field>
+              <FieldLabel className="font-afacad text-2xl text-black dark:text-white">
+                Documento de identidade (opcional)
+              </FieldLabel>
+
+              <label
+                className="flex cursor-pointer items-center gap-3 rounded-lg border-2 border-dashed border-[#D9D9D9] dark:border-muted-foreground/30 px-4 py-5 transition-colors hover:border-primary-green"
+                htmlFor="sign-up-form-document-file"
+              >
+                <ImagePlus className="h-5 w-5 shrink-0 text-gray-400" />
+
+                <span className="flex-1 truncate text-xl text-[#B3B3B3] dark:text-muted-foreground">
+                  {documentFile ? documentFile.name : "Selecionar imagem ou PDF..."}
+                </span>
+
+                {documentFile && (
+                  <button
+                    type="button"
+                    className="text-muted-foreground transition-colors hover:text-red-500"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setDocumentFile(undefined);
+                    }}
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+
+                <input
+                  accept="image/*,.pdf"
+                  className="hidden"
+                  id="sign-up-form-document-file"
+                  type="file"
+                  onChange={(e) => setDocumentFile(e.target.files?.[0])}
+                />
+              </label>
+            </Field>
           </FieldGroup>
 
           {serverError && (
