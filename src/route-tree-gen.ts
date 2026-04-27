@@ -16,6 +16,8 @@ import { Route as PublicIndexRouteImport } from './pages/_public/index'
 import { Route as AdminDashboardIndexRouteImport } from './pages/admin/dashboard/index'
 import { Route as AuthSignUpIndexRouteImport } from './pages/_auth/sign-up/index'
 import { Route as AuthSignInIndexRouteImport } from './pages/_auth/sign-in/index'
+import { Route as AdminPrimaryHistoryIndexRouteImport } from './pages/admin/_primary/history/index'
+import { Route as AdminPrimaryCollectionPointsIndexRouteImport } from './pages/admin/_primary/collection-points/index'
 import { Route as PublicFaqPrefecturesIndexRouteImport } from './pages/_public/faq/prefectures/index'
 import { Route as PublicFaqCooperativesIndexRouteImport } from './pages/_public/faq/cooperatives/index'
 
@@ -53,6 +55,18 @@ const AuthSignInIndexRoute = AuthSignInIndexRouteImport.update({
   path: '/sign-in/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPrimaryHistoryIndexRoute =
+  AdminPrimaryHistoryIndexRouteImport.update({
+    id: '/_primary/history/',
+    path: '/history/',
+    getParentRoute: () => AdminLayoutRoute,
+  } as any)
+const AdminPrimaryCollectionPointsIndexRoute =
+  AdminPrimaryCollectionPointsIndexRouteImport.update({
+    id: '/_primary/collection-points/',
+    path: '/collection-points/',
+    getParentRoute: () => AdminLayoutRoute,
+  } as any)
 const PublicFaqPrefecturesIndexRoute =
   PublicFaqPrefecturesIndexRouteImport.update({
     id: '/faq/prefectures/',
@@ -75,6 +89,8 @@ export interface FileRoutesByFullPath {
   '/admin/dashboard/': typeof AdminDashboardIndexRoute
   '/faq/cooperatives/': typeof PublicFaqCooperativesIndexRoute
   '/faq/prefectures/': typeof PublicFaqPrefecturesIndexRoute
+  '/admin/collection-points/': typeof AdminPrimaryCollectionPointsIndexRoute
+  '/admin/history/': typeof AdminPrimaryHistoryIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
@@ -84,6 +100,8 @@ export interface FileRoutesByTo {
   '/admin/dashboard': typeof AdminDashboardIndexRoute
   '/faq/cooperatives': typeof PublicFaqCooperativesIndexRoute
   '/faq/prefectures': typeof PublicFaqPrefecturesIndexRoute
+  '/admin/collection-points': typeof AdminPrimaryCollectionPointsIndexRoute
+  '/admin/history': typeof AdminPrimaryHistoryIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -96,6 +114,8 @@ export interface FileRoutesById {
   '/admin/dashboard/': typeof AdminDashboardIndexRoute
   '/_public/faq/cooperatives/': typeof PublicFaqCooperativesIndexRoute
   '/_public/faq/prefectures/': typeof PublicFaqPrefecturesIndexRoute
+  '/admin/_primary/collection-points/': typeof AdminPrimaryCollectionPointsIndexRoute
+  '/admin/_primary/history/': typeof AdminPrimaryHistoryIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -108,6 +128,8 @@ export interface FileRouteTypes {
     | '/admin/dashboard/'
     | '/faq/cooperatives/'
     | '/faq/prefectures/'
+    | '/admin/collection-points/'
+    | '/admin/history/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -117,6 +139,8 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/faq/cooperatives'
     | '/faq/prefectures'
+    | '/admin/collection-points'
+    | '/admin/history'
   id:
     | '__root__'
     | '/_public'
@@ -128,6 +152,8 @@ export interface FileRouteTypes {
     | '/admin/dashboard/'
     | '/_public/faq/cooperatives/'
     | '/_public/faq/prefectures/'
+    | '/admin/_primary/collection-points/'
+    | '/admin/_primary/history/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -188,6 +214,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/_primary/history/': {
+      id: '/admin/_primary/history/'
+      path: '/history'
+      fullPath: '/admin/history/'
+      preLoaderRoute: typeof AdminPrimaryHistoryIndexRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
+    '/admin/_primary/collection-points/': {
+      id: '/admin/_primary/collection-points/'
+      path: '/collection-points'
+      fullPath: '/admin/collection-points/'
+      preLoaderRoute: typeof AdminPrimaryCollectionPointsIndexRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
     '/_public/faq/prefectures/': {
       id: '/_public/faq/prefectures/'
       path: '/faq/prefectures'
@@ -224,11 +264,16 @@ const PublicLayoutRouteWithChildren = PublicLayoutRoute._addFileChildren(
 interface AdminLayoutRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
   AdminDashboardIndexRoute: typeof AdminDashboardIndexRoute
+  AdminPrimaryCollectionPointsIndexRoute: typeof AdminPrimaryCollectionPointsIndexRoute
+  AdminPrimaryHistoryIndexRoute: typeof AdminPrimaryHistoryIndexRoute
 }
 
 const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
   AdminDashboardIndexRoute: AdminDashboardIndexRoute,
+  AdminPrimaryCollectionPointsIndexRoute:
+    AdminPrimaryCollectionPointsIndexRoute,
+  AdminPrimaryHistoryIndexRoute: AdminPrimaryHistoryIndexRoute,
 }
 
 const AdminLayoutRouteWithChildren = AdminLayoutRoute._addFileChildren(
