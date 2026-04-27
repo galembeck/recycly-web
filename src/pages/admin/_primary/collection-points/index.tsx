@@ -6,9 +6,9 @@ import {
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { useRef, useState } from "react";
-import { CollectionPointCard } from "./~components/-collection-point-card";
 import { CollectionPointMap } from "./~components/-collection-point-map";
 import { CreateCollectionPointDialog } from "./~components/-create-collection-point-dialog";
+import { CollectionPointCard } from "./~components/-collection-point-card";
 
 export const Route = createFileRoute("/admin/_primary/collection-points/")({
   component: CollectionPointsPage,

@@ -1,9 +1,9 @@
-import { useNavigate } from "@tanstack/react-router";
 import { ArrowBigRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function IntroSection() {
-  const navigate = useNavigate();
+  const scrollToMap = () =>
+    document.getElementById("map")?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <section
@@ -25,7 +25,7 @@ export function IntroSection() {
 
         <Button
           className="w-full cursor-pointer self-start bg-[#E5E5E8] dark:bg-primary-green text-lg text-primary-green dark:text-white shadow-lg transition-all duration-300 hover:bg-[#E5E5E8] dark:hover:bg-primary-green/80 hover:shadow-xl md:w-fit"
-          onClick={() => navigate({ to: "/" })}
+          onClick={scrollToMap}
         >
           Pontos de coleta próximos
           <ArrowBigRight className="fill-primary-green" />
