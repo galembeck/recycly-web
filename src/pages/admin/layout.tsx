@@ -45,6 +45,7 @@ function AdminLayout() {
     "/admin/collection-points": "Pontos de coleta",
     "/admin/history": "Histórico de reciclagem",
     "/admin/sales": "Vendas",
+    "/admin/statistics": "Estatísticas",
   };
 
   const currentPageLabel =

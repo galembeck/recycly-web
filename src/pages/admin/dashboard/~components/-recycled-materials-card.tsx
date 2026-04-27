@@ -1,7 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { useDashboardStats } from "@/hooks/services/use-dashboard";
 
 export function RecycledMaterialsCard() {
+  const { data: stats } = useDashboardStats();
+
+  const fmt = (kg: number | undefined) =>
+    kg !== undefined ? `${kg.toFixed(2)} kg` : "—";
+
   return (
     <Card className="flex w-full p-0 xl:w-1/2">
       <CardContent className="relative w-full p-0">
@@ -15,7 +21,9 @@ export function RecycledMaterialsCard() {
           </div>
 
           <div className="ml-auto flex flex-col items-end">
-            <span className="font-semibold text-2xl">10</span>
+            <span className="font-semibold text-2xl">
+              {fmt(stats?.metalKg)}
+            </span>
             <p className="text-muted-foreground text-sm">
               <span className="font-bold">
                 Metais reciclados em sua(s) cooperativa(s)
@@ -28,7 +36,9 @@ export function RecycledMaterialsCard() {
 
         <article className="relative flex h-34 items-center overflow-hidden bg-muted/30 px-6">
           <div className="flex flex-col">
-            <span className="font-semibold text-2xl">20</span>
+            <span className="font-semibold text-2xl">
+              {fmt(stats?.plasticKg)}
+            </span>
             <p className="text-muted-foreground text-sm">
               <span className="font-bold">
                 Plásticos reciclados em sua(s) cooperativa(s)
@@ -57,7 +67,9 @@ export function RecycledMaterialsCard() {
           </div>
 
           <div className="ml-auto flex flex-col items-end">
-            <span className="font-semibold text-2xl">30</span>
+            <span className="font-semibold text-2xl">
+              {fmt(stats?.glassKg)}
+            </span>
             <p className="text-muted-foreground text-sm">
               <span className="font-bold">
                 Vidros reciclados em sua(s) cooperativa(s)

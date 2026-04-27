@@ -9,6 +9,8 @@ import { TransactionsOverview } from "./~components/analytics-information/-trans
 import { CollectionPointCard } from "../_primary/collection-points/~components/-collection-point-card";
 import { useCollectionPoints } from "@/hooks/services/use-collection-points";
 import { Card } from "@/components/ui/card";
+import { CollectHistoryTable } from "../_primary/history/~components/-collect-history-table";
+import { SaleTable } from "../_primary/sales/~components/-sale-table";
 
 export const Route = createFileRoute("/admin/dashboard/")({
   component: DashboardPage,
@@ -32,7 +34,7 @@ function DashboardPage() {
             Olá, {user?.name?.split(" ")[0]}!
           </h2>
 
-          <p>
+          <p className="text-lg">
             Aqui está um resumo das atividades em sua(s) cooperativa(s) de
             reciclagem registradas em nossa plataforma.
           </p>
@@ -62,10 +64,12 @@ function DashboardPage() {
         </TabsList>
 
         <TabsContent value="history">
-          {/*<OrdersTable layout="summary" />*/}
+          <CollectHistoryTable />
         </TabsContent>
 
-        <TabsContent value="sales">{/*<ClientsTable />*/}</TabsContent>
+        <TabsContent value="sales">
+          <SaleTable />
+        </TabsContent>
 
         <TabsContent value="collection-points">
           <Card className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 px-4">
