@@ -1,18 +1,17 @@
+import { useAuth } from "@/hooks/services/use-auth";
+import { scrollToSection } from "@/utils/scroll-to-section";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import { LayoutDashboard, LogIn, LogOut, Menu, Recycle, X } from "lucide-react";
 import { useState } from "react";
-import { useAuth } from "@/hooks/services/use-auth";
-import { getInitials } from "@/utils/get-initials";
-import { scrollToSection } from "@/utils/scroll-to-section";
+import { ProfileDropdown } from "./profile-dropdown";
 import { ThemeToggle } from "./theme-toggle";
 import { Button } from "./ui/button";
-import { ProfileDropdown } from "./profile-dropdown";
 
 export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { signOut, user, isAuthenticated } = useAuth();
+  const { signOut, isAuthenticated } = useAuth();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
