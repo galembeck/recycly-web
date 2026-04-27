@@ -1,30 +1,38 @@
-import { ChartLine, History, MapPin, SquareTerminal } from "lucide-react";
+import {
+  Banknote,
+  ChartLine,
+  History,
+  MapPin,
+  SquareTerminal,
+} from "lucide-react";
 
 export const dashboardData = {
-	primary: [
-		{
-			title: "Visão Geral",
-			url: "/admin/dashboard",
-			icon: SquareTerminal,
-			isActive: true,
-		},
-		{
-			title: "Pontos de Coleta",
-			url: "/admin/collection-points",
-			icon: MapPin,
-			isActive: true,
-		},
-		{
-			title: "Histórico",
-			url: "/admin/history",
-			icon: History,
-			isActive: true,
-		},
-		{
-			title: "Estatísticas",
-			url: "/admin/statistics",
-			icon: ChartLine,
-			isActive: true,
-		},
-	],
+  primary: [
+    {
+      title: "Visão Geral",
+      url: "/admin/dashboard",
+      icon: SquareTerminal,
+      isActive: true,
+    },
+    {
+      title: "Pontos de Coleta",
+      url: "/admin/collection-points",
+      icon: MapPin,
+    },
+    {
+      title: "Histórico de reciclagem",
+      url: "/admin/history",
+      icon: History,
+    },
+    {
+      title: "Vendas",
+      url: "/admin/sales",
+      icon: Banknote,
+    },
+    {
+      title: "Estatísticas",
+      url: "/admin/statistics",
+      icon: ChartLine,
+    },
+  ],
 };

@@ -18,10 +18,10 @@ export function useUser() {
   const { mutate: register, isPending } = useMutation({
     mutationFn: async (data: PrivateUserDTO) => {
       await userService.register(data);
-      await authService.signIn({ email: data.email, password: data.password });
+      await authService.signIn({ identifier: data.email, password: data.password });
     },
     onSuccess: async () => {
-      refetch();
+      await refetch();
       toast.success("Conta criada com sucesso!", {
         description: "Redirecionando para o painel administrativo...",
       });
