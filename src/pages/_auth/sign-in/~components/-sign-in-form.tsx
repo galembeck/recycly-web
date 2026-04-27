@@ -25,9 +25,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
 const signInSchema = z.object({
-  email: z.email({
-    message: "O email deve ter um formato válido.",
-  }),
+  identifier: z.string().min(1, { message: "Informe seu e-mail ou CPF." }),
   password: z.string().min(1, {
     message: "A senha é obrigatória.",
   }),
@@ -44,7 +42,7 @@ export function SignInForm() {
   const form = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      email: "",
+      identifier: "",
       password: "",
     },
   });
@@ -52,12 +50,12 @@ export function SignInForm() {
   function onSubmit(values: SignInFormData) {
     setServerError("");
 
-    signIn({ email: values.email, password: values.password });
+    signIn({ identifier: values.identifier, password: values.password });
   }
 
   return (
-    <div className="flex max-h-full w-full flex-col gap-4 overflow-y-auto rounded-[10px] bg-white px-6 py-6 shadow-lg">
-      <h1 className="text-center font-bold text-5xl text-[#5B5B5B]">
+    <div className="flex max-h-full w-full flex-col gap-4 overflow-y-auto rounded-[10px] bg-white dark:bg-third-dark px-6 py-6 shadow-lg">
+      <h1 className="text-center font-bold text-5xl text-black dark:text-white">
         Entrar na conta
       </h1>
 
@@ -70,14 +68,14 @@ export function SignInForm() {
           <FieldGroup>
             <Controller
               control={form.control}
-              name="email"
+              name="identifier"
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel
-                    className="font-afacad text-2xl text-black"
-                    htmlFor="sign-in-form-email"
+                    className="font-afacad text-2xl text-black dark:text-white"
+                    htmlFor="sign-in-form-identifier"
                   >
-                    E-mail
+                    E-mail ou CPF
                   </FieldLabel>
 
                   <div className="relative">
@@ -86,10 +84,9 @@ export function SignInForm() {
                     <Input
                       {...field}
                       aria-invalid={fieldState.invalid}
-                      className="border-[#D9D9D9]! pl-12! py-6 text-black! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
-                      id="sign-in-form-email"
-                      placeholder="seu@email.com"
-                      type="email"
+                      className="border-[#D9D9D9]! dark:border-muted-foreground/30! pl-12! py-6 text-black! dark:text-white! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
+                      id="sign-in-form-identifier"
+                      placeholder="seu@email.com ou 000.000.000-00"
                     />
                   </div>
 
@@ -109,7 +106,7 @@ export function SignInForm() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel
-                    className="font-afacad text-2xl text-black"
+                    className="font-afacad text-2xl text-black dark:text-white"
                     htmlFor="sign-in-form-password"
                   >
                     Senha
@@ -121,7 +118,7 @@ export function SignInForm() {
                     <Input
                       {...field}
                       aria-invalid={fieldState.invalid}
-                      className="border-[#D9D9D9]! pl-12! pr-10! py-6 text-black! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
+                      className="border-[#D9D9D9]! dark:border-muted-foreground/30! pl-12! pr-10! py-6 text-black! dark:text-white! text-xl! shadow-sm placeholder:text-[#B3B3B3]"
                       id="sign-in-form-password"
                       placeholder="******"
                       type={showPassword ? "text" : "password"}
@@ -179,14 +176,14 @@ export function SignInForm() {
       </Form>
 
       <Link
-        className="text-center text-lg text-primary-green-dark"
+        className="text-center text-lg text-primary-green-dark dark:text-white"
         to="/sign-up"
       >
         Não tem uma conta?{" "}
         <strong className="text-primary-green">Criar conta</strong>
       </Link>
 
-      <Separator className="bg-gray-300" />
+      <Separator className="bg-gray-300 dark:bg-muted-foreground/30" />
 
       <Button
         className="flex cursor-pointer items-center gap-2 bg-white! text-center text-lg text-primary-green-dark hover:bg-white/90! hover:text-primary-green-dark/80"
