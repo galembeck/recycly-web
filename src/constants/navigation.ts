@@ -70,7 +70,7 @@ export const searchNavigationItems: NavigationItem[] = [
   {
     id: "profile",
     title: "Perfil",
-    url: "/app/profile",
+    url: "/admin/profile",
     description: "Gerenciar informações do perfil",
     group: "Conta",
     keywords: ["perfil", "usuario", "conta", "configuracoes pessoais", "dados"],
@@ -78,7 +78,7 @@ export const searchNavigationItems: NavigationItem[] = [
   {
     id: "settings",
     title: "Configurações",
-    url: "/app/settings",
+    url: "/admin/settings",
     description: "Configurações do sistema",
     group: "Sistema",
     keywords: [

@@ -6,13 +6,13 @@ import { ChartAreaInteractive } from "./~components/-chart-area-interactive";
 import { RecycledMaterialsCard } from "./~components/-recycled-materials-card";
 import { UnderDevelopmentAdvice } from "./~components/-under-development-advice";
 import { TransactionsOverview } from "./~components/analytics-information/-transactions-overview";
-import { CollectionPointCard } from "../_primary/collection-points/~components/-collection-point-card";
 import { useCollectionPoints } from "@/hooks/services/use-collection-points";
 import { Card } from "@/components/ui/card";
-import { CollectHistoryTable } from "../_primary/history/~components/-collect-history-table";
-import { SaleTable } from "../_primary/sales/~components/-sale-table";
+import { CollectHistoryTable } from "../history/~components/-collect-history-table";
+import { CollectionPointCard } from "../collection-points/~components/-collection-point-card";
+import { SaleTable } from "../sales/~components/-sale-table";
 
-export const Route = createFileRoute("/admin/dashboard/")({
+export const Route = createFileRoute("/admin/_primary/dashboard/")({
   component: DashboardPage,
   head: () => ({
     meta: [

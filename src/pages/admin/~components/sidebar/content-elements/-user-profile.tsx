@@ -135,7 +135,9 @@ export function UserProfile() {
             <DropdownMenuSeparator />
 
             <DropdownMenuGroup>
-              <DropdownMenuItem onClick={() => navigate({ to: "/admin" })}>
+              <DropdownMenuItem
+                onClick={() => navigate({ to: "/admin/profile" })}
+              >
                 <User />
                 Perfil
               </DropdownMenuItem>

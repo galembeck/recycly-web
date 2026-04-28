@@ -46,6 +46,9 @@ function AdminLayout() {
     "/admin/history": "Histórico de reciclagem",
     "/admin/sales": "Vendas",
     "/admin/statistics": "Estatísticas",
+
+    "/admin/profile": "Informações da conta",
+    "/admin/settings": "Configurações",
   };
 
   const currentPageLabel =

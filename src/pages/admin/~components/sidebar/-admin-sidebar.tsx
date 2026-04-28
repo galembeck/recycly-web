@@ -35,7 +35,7 @@ export function AdminSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
           <SidebarGroupLabel>Sistema</SidebarGroupLabel>
           <SidebarMenuItem>
             <SidebarMenuButton
-              onClick={() => navigate({ to: "/admin" })}
+              onClick={() => navigate({ to: "/admin/settings" })}
               className="cursor-pointer"
               tooltip="Configurações"
             >
