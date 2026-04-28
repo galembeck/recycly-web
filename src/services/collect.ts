@@ -4,6 +4,7 @@ import type { Collect, CreateCollectInput } from "@/types/collect";
 export const collectService = {
   getMyHistory: () => API.get<Collect[]>("/collect"),
   getByCooperative: () => API.get<Collect[]>("/collect/cooperative"),
+  getById: (id: string) => API.get<Collect>(`/collect/${id}`),
   getByPoint: (pointId: string) =>
     API.get<Collect[]>(`/collect/point/${pointId}`),
   create: (data: CreateCollectInput) => API.post<Collect>("/collect", data),

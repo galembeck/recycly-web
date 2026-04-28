@@ -30,14 +30,23 @@ import {
 import { useDeleteSale, useSales } from "@/hooks/services/use-sales";
 import type { Sale } from "@/types/sale";
 import type { ColumnDef } from "@tanstack/react-table";
+import { useNavigate } from "@tanstack/react-router";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { exportSalesPDF } from "@/utils/export-pdf";
-import { Copy, FileDown, MoreHorizontal, Plus, Trash2 } from "lucide-react";
+import {
+  Copy,
+  FileDown,
+  MoreHorizontal,
+  Plus,
+  ScanSearch,
+  Trash2,
+} from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { CreateSaleDialog } from "./-create-sale-dialog";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const saleColumns: ColumnDef<Sale>[] = [
   {
     accessorKey: "id",
@@ -136,6 +145,7 @@ export const saleColumns: ColumnDef<Sale>[] = [
     cell: ({ row }) => {
       const sale = row.original;
       const { mutate: deleteSale } = useDeleteSale();
+      const navigate = useNavigate();
       const [confirmOpen, setConfirmOpen] = useState(false);
 
       return (
@@ -149,6 +159,17 @@ export const saleColumns: ColumnDef<Sale>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Opções</DropdownMenuLabel>
+              <DropdownMenuItem
+                onClick={() =>
+                  navigate({
+                    to: "/admin/sales/$saleId",
+                    params: { saleId: sale.id },
+                  })
+                }
+              >
+                <ScanSearch />
+                Ver detalhes
+              </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => {
                   navigator.clipboard.writeText(sale.id);

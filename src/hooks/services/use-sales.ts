@@ -4,6 +4,14 @@ import type { CreateSaleInput } from "@/types/sale";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
+export function useSale(id: string) {
+  return useQuery({
+    queryKey: ["sales", id],
+    queryFn: () => saleService.getById(id),
+    enabled: !!id,
+  });
+}
+
 export function useSales() {
   return useQuery({
     queryKey: ["sales"],

@@ -33,10 +33,18 @@ import {
 } from "@/hooks/services/use-collects";
 import type { Collect } from "@/types/collect";
 import type { ColumnDef } from "@tanstack/react-table";
+import { useNavigate } from "@tanstack/react-router";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { exportCollectHistoryPDF } from "@/utils/export-pdf";
-import { Copy, FileDown, MoreHorizontal, Plus, Trash2 } from "lucide-react";
+import {
+  Copy,
+  FileDown,
+  MoreHorizontal,
+  Plus,
+  ScanSearch,
+  Trash2,
+} from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { CreateCollectDialog } from "./-create-collect-dialog";
@@ -129,6 +137,7 @@ export const collectHistoryColumns: ColumnDef<Collect>[] = [
     cell: ({ row }) => {
       const collect = row.original;
       const { mutate: deleteCollect } = useDeleteCollect();
+      const navigate = useNavigate();
       const [confirmOpen, setConfirmOpen] = useState(false);
 
       return (
@@ -142,6 +151,17 @@ export const collectHistoryColumns: ColumnDef<Collect>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Opções</DropdownMenuLabel>
+              <DropdownMenuItem
+                onClick={() =>
+                  navigate({
+                    to: "/admin/history/$collectId",
+                    params: { collectId: collect.id },
+                  })
+                }
+              >
+                <ScanSearch />
+                Ver detalhes
+              </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => {
                   navigator.clipboard.writeText(collect.id);

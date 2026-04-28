@@ -4,6 +4,14 @@ import type { CreateCollectInput } from "@/types/collect";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
+export function useCollect(id: string) {
+  return useQuery({
+    queryKey: ["collects", id],
+    queryFn: () => collectService.getById(id),
+    enabled: !!id,
+  });
+}
+
 export function useCooperativeCollects() {
   return useQuery({
     queryKey: ["collects", "cooperative"],

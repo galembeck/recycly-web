@@ -24,6 +24,8 @@ import { Route as AdminAccountSettingsIndexRouteImport } from './pages/admin/_ac
 import { Route as AdminAccountProfileIndexRouteImport } from './pages/admin/_account/profile/index'
 import { Route as PublicFaqPrefecturesIndexRouteImport } from './pages/_public/faq/prefectures/index'
 import { Route as PublicFaqCooperativesIndexRouteImport } from './pages/_public/faq/cooperatives/index'
+import { Route as AdminPrimarySalesSaleIdIndexRouteImport } from './pages/admin/_primary/sales/$saleId/index'
+import { Route as AdminPrimaryHistoryCollectIdIndexRouteImport } from './pages/admin/_primary/history/$collectId/index'
 
 const AdminLayoutRoute = AdminLayoutRouteImport.update({
   id: '/admin',
@@ -107,6 +109,18 @@ const PublicFaqCooperativesIndexRoute =
     path: '/faq/cooperatives/',
     getParentRoute: () => PublicLayoutRoute,
   } as any)
+const AdminPrimarySalesSaleIdIndexRoute =
+  AdminPrimarySalesSaleIdIndexRouteImport.update({
+    id: '/_primary/sales/$saleId/',
+    path: '/sales/$saleId/',
+    getParentRoute: () => AdminLayoutRoute,
+  } as any)
+const AdminPrimaryHistoryCollectIdIndexRoute =
+  AdminPrimaryHistoryCollectIdIndexRouteImport.update({
+    id: '/_primary/history/$collectId/',
+    path: '/history/$collectId/',
+    getParentRoute: () => AdminLayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
@@ -123,6 +137,8 @@ export interface FileRoutesByFullPath {
   '/admin/history/': typeof AdminPrimaryHistoryIndexRoute
   '/admin/sales/': typeof AdminPrimarySalesIndexRoute
   '/admin/statistics/': typeof AdminPrimaryStatisticsIndexRoute
+  '/admin/history/$collectId/': typeof AdminPrimaryHistoryCollectIdIndexRoute
+  '/admin/sales/$saleId/': typeof AdminPrimarySalesSaleIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
@@ -138,6 +154,8 @@ export interface FileRoutesByTo {
   '/admin/history': typeof AdminPrimaryHistoryIndexRoute
   '/admin/sales': typeof AdminPrimarySalesIndexRoute
   '/admin/statistics': typeof AdminPrimaryStatisticsIndexRoute
+  '/admin/history/$collectId': typeof AdminPrimaryHistoryCollectIdIndexRoute
+  '/admin/sales/$saleId': typeof AdminPrimarySalesSaleIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -156,6 +174,8 @@ export interface FileRoutesById {
   '/admin/_primary/history/': typeof AdminPrimaryHistoryIndexRoute
   '/admin/_primary/sales/': typeof AdminPrimarySalesIndexRoute
   '/admin/_primary/statistics/': typeof AdminPrimaryStatisticsIndexRoute
+  '/admin/_primary/history/$collectId/': typeof AdminPrimaryHistoryCollectIdIndexRoute
+  '/admin/_primary/sales/$saleId/': typeof AdminPrimarySalesSaleIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -174,6 +194,8 @@ export interface FileRouteTypes {
     | '/admin/history/'
     | '/admin/sales/'
     | '/admin/statistics/'
+    | '/admin/history/$collectId/'
+    | '/admin/sales/$saleId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -189,6 +211,8 @@ export interface FileRouteTypes {
     | '/admin/history'
     | '/admin/sales'
     | '/admin/statistics'
+    | '/admin/history/$collectId'
+    | '/admin/sales/$saleId'
   id:
     | '__root__'
     | '/_public'
@@ -206,6 +230,8 @@ export interface FileRouteTypes {
     | '/admin/_primary/history/'
     | '/admin/_primary/sales/'
     | '/admin/_primary/statistics/'
+    | '/admin/_primary/history/$collectId/'
+    | '/admin/_primary/sales/$saleId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -322,6 +348,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicFaqCooperativesIndexRouteImport
       parentRoute: typeof PublicLayoutRoute
     }
+    '/admin/_primary/sales/$saleId/': {
+      id: '/admin/_primary/sales/$saleId/'
+      path: '/sales/$saleId'
+      fullPath: '/admin/sales/$saleId/'
+      preLoaderRoute: typeof AdminPrimarySalesSaleIdIndexRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
+    '/admin/_primary/history/$collectId/': {
+      id: '/admin/_primary/history/$collectId/'
+      path: '/history/$collectId'
+      fullPath: '/admin/history/$collectId/'
+      preLoaderRoute: typeof AdminPrimaryHistoryCollectIdIndexRouteImport
+      parentRoute: typeof AdminLayoutRoute
+    }
   }
 }
 
@@ -350,6 +390,8 @@ interface AdminLayoutRouteChildren {
   AdminPrimaryHistoryIndexRoute: typeof AdminPrimaryHistoryIndexRoute
   AdminPrimarySalesIndexRoute: typeof AdminPrimarySalesIndexRoute
   AdminPrimaryStatisticsIndexRoute: typeof AdminPrimaryStatisticsIndexRoute
+  AdminPrimaryHistoryCollectIdIndexRoute: typeof AdminPrimaryHistoryCollectIdIndexRoute
+  AdminPrimarySalesSaleIdIndexRoute: typeof AdminPrimarySalesSaleIdIndexRoute
 }
 
 const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
@@ -362,6 +404,9 @@ const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
   AdminPrimaryHistoryIndexRoute: AdminPrimaryHistoryIndexRoute,
   AdminPrimarySalesIndexRoute: AdminPrimarySalesIndexRoute,
   AdminPrimaryStatisticsIndexRoute: AdminPrimaryStatisticsIndexRoute,
+  AdminPrimaryHistoryCollectIdIndexRoute:
+    AdminPrimaryHistoryCollectIdIndexRoute,
+  AdminPrimarySalesSaleIdIndexRoute: AdminPrimarySalesSaleIdIndexRoute,
 }
 
 const AdminLayoutRouteWithChildren = AdminLayoutRoute._addFileChildren(
