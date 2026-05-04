@@ -1,5 +1,5 @@
 import { useNavigate } from "@tanstack/react-router";
-import { Bell, ChevronsUpDown, CreditCard, LogOut, User } from "lucide-react";
+import { ChevronsUpDown, LogOut, User } from "lucide-react";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -17,45 +17,50 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useAuth } from "@/hooks/services/use-auth";
+import { getInitials } from "@/utils/get-initials";
 
 export function UserProfile() {
   const navigate = useNavigate();
 
   const { isMobile } = useSidebar();
 
-  // const { user, logout, isLoading } = useAuth();
+  const { user, signOut, isPending } = useAuth();
 
   const handleLogout = () => {
-    // logout();
+    signOut();
+
     toast.info("Esperamos te ver em breve!", {
       description: "Redirecionando de volta para a página inicial...",
     });
+
     navigate({ to: "/sign-in" });
+
     window.location.reload();
   };
 
-  // if (isLoading || !user) {
-  // 	return (
-  // 		<SidebarMenu>
-  // 			<SidebarMenuItem>
-  // 				<SidebarMenuButton disabled size="lg">
-  // 					<Avatar className="h-8 w-8 rounded-lg">
-  // 						<AvatarFallback className="animate-pulse rounded-lg bg-gray-300">
-  // 							...
-  // 						</AvatarFallback>
-  // 					</Avatar>
-  // 					<div className="grid flex-1 text-left text-sm leading-tight">
-  // 						<span className="h-4 w-20 animate-pulse truncate rounded bg-gray-300 font-medium" />
-  // 						<span className="mt-1 h-3 w-24 animate-pulse truncate rounded bg-gray-200 text-xs" />
-  // 					</div>
-  // 				</SidebarMenuButton>
-  // 			</SidebarMenuItem>
-  // 		</SidebarMenu>
-  // 	);
-  // }
+  if (isPending || !user) {
+    return (
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton disabled size="lg">
+            <Avatar className="h-8 w-8 rounded-lg">
+              <AvatarFallback className="animate-pulse rounded-lg bg-gray-300">
+                ...
+              </AvatarFallback>
+            </Avatar>
+            <div className="grid flex-1 text-left text-sm leading-tight">
+              <span className="h-4 w-20 animate-pulse truncate rounded bg-gray-300 font-medium" />
+              <span className="mt-1 h-3 w-24 animate-pulse truncate rounded bg-gray-200 text-xs" />
+            </div>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    );
+  }
 
-  // const userDisplayName = user.name ? `${user.name}` : user.name;
-  // const userInitials = getInitials(user.name);
+  const userDisplayName = user.name ? `${user.name}` : user.name;
+  const userInitials = getInitials(user.name);
 
   return (
     <SidebarMenu>
@@ -66,29 +71,16 @@ export function UserProfile() {
               className="cursor-pointer data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
               size="lg"
             >
-              {/* <Avatar className="h-8 w-8 rounded-lg">
-								<AvatarImage alt={userDisplayName} src="" />
-								<AvatarFallback className="rounded-lg bg-primary font-semibold text-primary-foreground">
-									{userInitials}
-								</AvatarFallback>
-							</Avatar>
-							<div className="grid flex-1 text-left text-sm leading-tight">
-								<span className="truncate font-medium">{userDisplayName}</span>
-								<span className="truncate text-muted-foreground text-xs">
-									{user.email}
-								</span>
-							</div> */}
-
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage alt="Pedro Galembeck" src="" />
+                <AvatarImage alt={userDisplayName} src="" />
                 <AvatarFallback className="rounded-lg bg-primary font-semibold text-primary-foreground">
-                  PG
+                  {userInitials}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">Pedro Galembeck</span>
+                <span className="truncate font-medium">{userDisplayName}</span>
                 <span className="truncate text-muted-foreground text-xs">
-                  galembeckpedro@gmail.com
+                  {user.email}
                 </span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
@@ -102,31 +94,18 @@ export function UserProfile() {
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                {/* <Avatar className="h-8 w-8 rounded-lg">
-									<AvatarImage alt={userDisplayName} src="" />
-									<AvatarFallback className="rounded-lg bg-primary font-semibold text-primary-foreground">
-										{userInitials}
-									</AvatarFallback>
-								</Avatar>
-								<div className="grid flex-1 text-left text-sm leading-tight">
-									<span className="truncate font-medium">
-										{userDisplayName}
-									</span>
-									<span className="truncate text-muted-foreground text-xs">
-										{user.email}
-									</span>
-								</div> */}
-
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage alt="Pedro Galembeck" src="" />
+                  <AvatarImage alt={userDisplayName} src="" />
                   <AvatarFallback className="rounded-lg bg-primary font-semibold text-primary-foreground">
-                    PG
+                    {userInitials}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Pedro Galembeck</span>
+                  <span className="truncate font-medium">
+                    {userDisplayName}
+                  </span>
                   <span className="truncate text-muted-foreground text-xs">
-                    galembeckpedro@gmail.com
+                    {user.email}
                   </span>
                 </div>
               </div>
